@@ -1,0 +1,53 @@
+<form action="/restaurants/{{restaurants._id}}?_method=PUT" method="post">
+
+  <div class="container">
+    <div class="row text-center">
+      <h1 class="mb-1 restaurant-show-title">{{restaurants.name}}</h1>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-10 mx-auto">
+
+        <span>餐廳名稱</span>
+        <input class="form-control" type="text" name="name" value="{{restaurants.name}}">
+
+        <span>英文名稱</span>
+        <input class="form-control" type="text" name="name_en" value="{{restaurants.name_en}}">
+
+        <span>餐廳類型</span>
+        <input class="form-control" type="text" name="category" value="{{restaurants.category}}">
+
+        <span>餐廳評分</span>
+        <input class="form-control" type="number" min="0" max="5" step="0.1" name="rating"
+          value="{{restaurants.rating}}">
+
+        <span>地址</span>
+        <input class="form-control" type="text" name="location" value="{{restaurants.location}}">
+
+        <span>餐廳地圖</span>
+        <input class="form-control" type="text" name="google_map" value="{{restaurants.google_map}}">
+
+
+        <span>餐廳電話</span>
+        <input class="form-control" type="text" name="phone" placeholder="若要編輯餐廳電話，請在此輸入新的電話"
+          value="{{restaurants.phone}}">
+
+        <span>餐廳描述</span>
+        <input class="form-control" type="text" name="description" placeholder="若要編輯餐廳敘述，請在此輸入新的敘述"
+          value="{{restaurants.description}}">
+
+        <span>餐廳圖片</span>
+        <input class="form-control" type="text" name="image" placeholder="若要編輯餐廳照片，請在此輸入新的照片網址"
+          value="{{restaurants.image}}">
+
+        <img class="rounded mx-auto d-block mb-4 w-100" src="{{restaurants.image}}" alt="{{restaurants.name}}"
+          style="max-width: 600px;">
+
+
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <button class="btn btn-warning mb-5 a-normal" type="submit">儲存變更</button>
+    </div>
+  </div>
+
+</form>

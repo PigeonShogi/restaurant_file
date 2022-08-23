@@ -7,7 +7,7 @@ router.get('/:id', (req, res) => {
   return Restaurant.findOne({ _id: id })
     .lean()
     .then((restaurants) => {
-      res.render('show', ({ restaurants }))
+      res.render('show', ({ restaurants, id }))
     })
     .catch(err => console.log(err))
 })
@@ -27,5 +27,42 @@ router.post('/add', (req, res) => {
       res.render('add', ({ name, name_en, category, image, location, phone, google_map, rating, description }))
     })
 })
+
+router.get('/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findOne({ _id: id })
+    .lean()
+    .then(restaurants => {
+      res.render('edit', ({ restaurants }))
+    })
+    .catch(err => console.log(err))
+})
+
+router.put('/:_id', (req, res) => {
+  const _id = req.params._id
+  const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
+
+  return Restaurant.findOne({ _id })
+    .then(restaurant => {
+      // restaurant.name = name
+      // restaurant.name_en = name_en
+      // restaurant.category = category
+      // restaurant.image = image
+      // restaurant.location = location
+      // restaurant.phone = phone
+      // restaurant.google_map = google_map
+      // restaurant.rating = rating
+      // restaurant.description = description
+      restaurant = Object.assign(restaurant, req.body) // 使用 Object.assign，相當於撰寫以上幾行註解的內容。
+      return restaurant.save()
+    })
+    .then(() => res.redirect(`/restaurants/${_id}`))
+    .catch(error => {
+      console.log(error)
+      res.render('errorPage', ({ error: error.message }))
+    })
+})
+
+
 
 module.exports = router
