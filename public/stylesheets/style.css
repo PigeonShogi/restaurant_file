@@ -2,6 +2,10 @@ body {
   background-color: azure;
 }
 
+a {
+  text-decoration: none;
+}
+
 .for-dummies {
   display: flex;
   flex-direction: column;
