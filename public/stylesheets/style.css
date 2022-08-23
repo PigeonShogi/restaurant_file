@@ -19,7 +19,10 @@ body {
 
 .card-columns {
   width: 18rem;
+}
 
+.a-normal {
+  width: 18rem;
 }
 
 #form-add {

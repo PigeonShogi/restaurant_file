@@ -2,6 +2,16 @@ const express = require('express')
 const router = express.Router()
 const Restaurant = require('../../models/restaurant')
 
+router.get('/:id', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findOne({ _id: id })
+    .lean()
+    .then((restaurants) => {
+      res.render('show', ({ restaurants }))
+    })
+    .catch(err => console.log(err))
+})
+
 router.get('/add', (req, res) => {
   res.render('add')
 })
