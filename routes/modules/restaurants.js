@@ -38,11 +38,11 @@ router.get('/:id/edit', (req, res) => {
     .catch(err => console.log(err))
 })
 
-router.put('/:_id', (req, res) => {
-  const _id = req.params._id
+router.put('/:id', (req, res) => {
+  const id = req.params.id
   const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
 
-  return Restaurant.findOne({ _id })
+  return Restaurant.findOne({ _id: id })
     .then(restaurant => {
       // restaurant.name = name
       // restaurant.name_en = name_en
@@ -56,13 +56,19 @@ router.put('/:_id', (req, res) => {
       restaurant = Object.assign(restaurant, req.body) // 使用 Object.assign，相當於撰寫以上幾行註解的內容。
       return restaurant.save()
     })
-    .then(() => res.redirect(`/restaurants/${_id}`))
+    .then(() => res.redirect(`/restaurants/${id}`))
     .catch(error => {
       console.log(error)
       res.render('errorPage', ({ error: error.message }))
     })
 })
 
-
+router.delete('/:id', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findOne({ _id: id })
+    .then(restaurant => restaurant.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
 
 module.exports = router
