@@ -1,3 +1,7 @@
+body {
+  background-color: azure;
+}
+
 .for-dummies {
   display: flex;
   flex-direction: column;
@@ -11,4 +15,9 @@
 
 .add-input {
   display: block
+}
+
+.card-columns {
+  width: 18rem;
+
 }

@@ -15,3 +15,6 @@ node_modules
 
 # node_modules
 .env
+
+# 資源回收筒
+recycle
