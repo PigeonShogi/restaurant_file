@@ -21,3 +21,7 @@ body {
   width: 18rem;
 
 }
+
+#form-add {
+  max-width: 1080px;
+}
