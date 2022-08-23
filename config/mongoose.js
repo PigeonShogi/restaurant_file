@@ -1,13 +1,13 @@
-// const mongoose = require('mongoose')
-// mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-// const db = mongoose.connection
+const mongoose = require('mongoose')
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+const db = mongoose.connection
 
-// db.on('error', () => {
-//   console.log('mongodb error!')
-// })
+db.on('error', () => {
+  console.log('mongodb error!')
+})
 
-// db.once('open', () => {
-//   console.log('MongoDB Connected!')
-// })
+db.once('open', () => {
+  console.log('MongoDB Connected!')
+})
 
-// module.exports = db
+module.exports = db
