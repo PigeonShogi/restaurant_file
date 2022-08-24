@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs')
+
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
@@ -11,7 +12,7 @@ const restaurantsJSON = require('../restaurant.json').results
 
 const SEED_USER = {
   email: 'user1@example.com',
-  password: 12345678
+  password: '12345678'
 }
 
 db.once('open', () => {
