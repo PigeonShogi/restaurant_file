@@ -4,6 +4,10 @@ const LocalStrategy = require('passport-local').Strategy
 // const FacebookStrategy = require('passport-facebook').Strategy
 const User = require('../models/user')
 
+/*
+登入頁面與 Flash message 尚未完成，詳情參考教案－－延伸挑戰：https://lighthouse.alphacamp.co/courses/118/units/25458
+*/
+
 module.exports = app => {
   /*
   初始化 Passport 模組
