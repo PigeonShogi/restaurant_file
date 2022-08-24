@@ -6,6 +6,15 @@ a {
   text-decoration: none;
 }
 
+img {
+  max-height: 200px;
+}
+
+.mb-3 {
+  width: 250px;
+  height: 370px;
+}
+
 .for-dummies {
   display: flex;
   flex-direction: column;
