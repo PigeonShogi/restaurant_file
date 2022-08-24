@@ -31,13 +31,15 @@
   </div>
 </div>
 
+{{> message}}
+
 <!-- restaurant list -->
 <div class="container mt-5">
   <div class="row justify-content-center">
     {{#each restaurants}}
     <div class="card-columns mx-1">
       <a href="/restaurants/{{this._id}}" class="text-secondary">
-        <div class="card mb-3">
+        <div class="card mb-3 card-home">
           <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}">
           <div class="card-body p-3">
             <h6 class="card-title mb-1">{{this.name}}</h6>

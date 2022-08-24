@@ -26,16 +26,26 @@ module.exports = app => {
   2. 將官方範例複製並依照需求調整編碼（例如改用箭頭函式、Promise語法等）
   3. Field 的相關說明見 GitHub 官方文件：https://github.com/jaredhanson/passport-local#parameters
   */
+
+  /*
+  延伸挑戰：
+  app.post('/login/password',
+    passport.authenticate('local', { failureRedirect: '/login', failureMessage: true }),
+    function(req, res) {
+      res.redirect('/~' + req.user.username);
+    });
+  */
+
   passport.use(new LocalStrategy(
-    { usernameField: 'email' }, (email, password, done) => {
+    { usernameField: 'email', passReqToCallback: true }, (req, email, password, done) => {
       User.findOne({ email })
         .then(user => {
           if (!user) {
-            return done(null, false, { message: '這個電郵位址尚未註冊' })
+            return done(null, false, req.flash('error_msg', '您輸入的帳號尚未註冊'))
           }
           return bcrypt.compare(password, user.password).then(isMatch => {
             if (!isMatch) {
-              return done(null, false, { message: '電郵位址或密碼不正確' })
+              return done(null, false, req.flash('error_msg', '密碼有誤，請注意英文大小寫是否正確輸入。'))
             }
             return done(null, user)
           })
