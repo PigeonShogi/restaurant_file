@@ -1,10 +1,8 @@
+const bcrypt = require('bcryptjs')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 // const FacebookStrategy = require('passport-facebook').Strategy
-const bcrypt = require('bcryptjs')
 const User = require('../models/user')
-
-require('dotenv').config()
 
 module.exports = app => {
   /*
@@ -31,14 +29,12 @@ module.exports = app => {
           if (!user) {
             return done(null, false, { message: '這個電郵位址尚未註冊' })
           }
-          return bcrypt.compare(password, user.password)
-            .then(isMatch => {
-              if (!isMatch) {
-                return done(null, false, { message: '電郵位址或密碼不正確' })
-              }
-              // console.log('輸入密碼與資料庫密碼吻合')
-              return done(null, user)
-            })
+          return bcrypt.compare(password, user.password).then(isMatch => {
+            if (!isMatch) {
+              return done(null, false, { message: '電郵位址或密碼不正確' })
+            }
+            return done(null, user)
+          })
         })
         .catch(err => (done(err, false)))
     }))

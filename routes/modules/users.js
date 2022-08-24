@@ -25,6 +25,7 @@ router.post('/login', passport.authenticate('local', {
 
 router.get('/logout', (req, res) => {
   req.logout()
+  req.flash('success_msg', '你已經登出系統')
   res.redirect('/users/login')
 })
 

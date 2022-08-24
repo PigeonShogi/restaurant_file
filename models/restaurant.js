@@ -44,11 +44,11 @@ const restaurantSchema = new Schema({
   done: {
     type: Boolean
   },
-  // userId: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'User',
-  //   index: true,
-  //   required: false
-  // }
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    index: true,
+    required: true
+  }
 })
 module.exports = mongoose.model('Restaurant', restaurantSchema)

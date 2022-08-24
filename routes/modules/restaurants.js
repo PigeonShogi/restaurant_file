@@ -7,9 +7,10 @@ router.get('/add', (req, res) => {
 })
 
 router.post('/add', (req, res) => {
+  const userId = req.user._id
   const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
   return Restaurant.create({
-    name, name_en, category, image, location, phone, google_map, rating, description
+    name, name_en, category, image, location, phone, google_map, rating, description, userId
   })
     .then(() => res.redirect('/'))
     .catch(err => {
@@ -19,30 +20,29 @@ router.post('/add', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findOne({ _id: id })
+  const userId = req.user._id
+  const _id = req.params.id
+  return Restaurant.findOne({ _id, userId })
     .lean()
-    .then((restaurants) => {
-      res.render('show', ({ restaurants, id }))
-    })
+    .then(restaurants => res.render('show', { restaurants, _id }))
     .catch(err => console.log(err))
 })
 
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findOne({ _id: id })
+  const userId = req.user._id
+  const _id = req.params.id
+  return Restaurant.findOne({ _id, userId })
     .lean()
-    .then(restaurants => {
-      res.render('edit', ({ restaurants }))
-    })
+    .then(restaurants => res.render('edit', ({ restaurants })))
     .catch(err => console.log(err))
 })
 
 router.put('/:id', (req, res) => {
-  const id = req.params.id
+  const userId = req.user._id
+  const _id = req.params.id
   const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
 
-  return Restaurant.findOne({ _id: id })
+  return Restaurant.findOne({ _id, userId })
     .then(restaurant => {
       // restaurant.name = name
       // restaurant.name_en = name_en
@@ -56,7 +56,7 @@ router.put('/:id', (req, res) => {
       restaurant = Object.assign(restaurant, req.body) // 使用 Object.assign，相當於撰寫以上幾行註解的內容。
       return restaurant.save()
     })
-    .then(() => res.redirect(`/restaurants/${id}`))
+    .then(() => res.redirect(`/restaurants/${_id}`))
     .catch(error => {
       console.log(error)
       res.render('errorPage', ({ error: error.message }))
@@ -64,8 +64,9 @@ router.put('/:id', (req, res) => {
 })
 
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findOne({ _id: id })
+  const userId = req.user._id
+  const _id = req.params.id
+  return Restaurant.findOne({ _id, userId })
     .then(restaurant => restaurant.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))

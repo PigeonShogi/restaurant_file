@@ -5,14 +5,14 @@ const restaurants = require('./modules/restaurants')
 const search = require('./modules/search')
 const sort = require('./modules/sort')
 const users = require('./modules/users')
+const auth = require('./modules/auth')
 
 const { authenticator } = require('../middleware/auth')
 
 router.use('/users', users)
-router.use('/restaurants', restaurants)
-router.use('/search', search)
-router.use('/sort', sort)
-router.use('/', home)
+router.use('/restaurants', authenticator, restaurants)
+router.use('/search', authenticator, search)
+router.use('/sort', authenticator, sort)
 router.use('/', authenticator, home)
 
 module.exports = router
